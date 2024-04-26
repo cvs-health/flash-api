@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quickstart &mdash; GCP KV CRUD API 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            GCP KV CRUD API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Quickstart</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#features-under-development">Features Under Development</a></li>
+<li><a class="reference internal" href="#contributor-guide">Contributor Guide</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">GCP KV CRUD API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quickstart</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this heading"></a></h1>
+<p>The project is intended to provide out of the box APIs to various GCP data stores for CRUD operations. Its purpose is to
+provide in-built solution to integrate with any GCP data store by just adding required configuration. This API can be integrated
+in current systems with very minimal efforts. Currently It supports GCP BigTable data store and we are working on adding support to other GCP datastores.</p>
+<p>GCP KV REST API is a Springboot application for various GCP data stores.
+Its purpose is to provide in-built solution to integrate with any GCP data store by just adding required configuration. This API can be integrated
+in current systems with very minimal efforts. Currently It supports GCP BigTable data store and we are working on adding support to other GCP datastores.</p>
+<p>We see that many times we require APIs which are mostly fetching/updating the some information using a specific id and this is mostly recurring requirement
+with changes in data store. It can be BIG table, redis or cloud SQL.</p>
+<p>This application provides out of the box solutions for all these kind of requirements.
+All you need to do is just add configuration for specific data stores and you are ready to use this in your application!</p>
+</section>
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<p>This application needs to have access to enabled GCP services from your local machine. You can install gcloud sdk and run below command to authenticate and setup gcp access</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud auth application-default login
+</pre></div>
+</div>
+<p>Update application.properties for below variables for you GCP project or setup env variables as below</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcp.projectId<span class="o">=</span><span class="si">${</span><span class="nv">GCP_PROJECT_ID</span><span class="si">}</span>
+gcp.instanceId.list<span class="o">=</span><span class="si">${</span><span class="nv">GCP_BIGTABLE_INSTANCE_LIST_COMMA_SEPARATED</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>You need to have Java 11 with maven installed and get required dependencies via:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mvn clean package
+</pre></div>
+</div>
+<p>Run KVLookupApplication.java from ide or using below command from terminal</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java -Dlog4j2.formatMsgNoLookups<span class="o">=</span><span class="nb">true</span> -DGCP_PROJECT_ID<span class="o">=</span>&lt;gcp_project_id&gt; -DGCP_BIGTABLE_INSTANCE_LIST<span class="o">=</span>&lt;comma-seprated-list-of-instanceIds&gt; -DGOOGLE_APPLICATION_CREDENTIALS<span class="o">=</span>&lt;path-to/application_default_credentials.json&gt; -jar target/gcp-kv-crud-rest-api-0.0.1-SNAPSHOT.jar
+</pre></div>
+</div>
+<p>Once started access API using:</p>
+<blockquote>
+<div><p><a class="reference external" href="http://localhost:8080/swagger-ui/index.html">http://localhost:8080/swagger-ui/index.html</a></p>
+</div></blockquote>
+</section>
+<section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h1>
+<p>The code currently provides below APIs</p>
+<ul class="simple">
+<li><p>POST /v1/{instanceID}/insertData</p></li>
+</ul>
+<p>This POST API will take instanceId as a path parameter and request payload as below which consists of tableName, rowKeyId and data.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;tableName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;Name of the table&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;rowKeyId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;Id of the row&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;columnFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;columnName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;columnValue&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>POST /v1/{instanceID}/createTable</p></li>
+</ul>
+<p>This POST API will create a new table in given BigTable instance along with a columnFamily mentioned.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;tableName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;columnFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>GET /v1/{instanceID}/readCellData</p></li>
+</ul>
+<p>This GET API takes path parameter instandID and query parameters tableName, id. It returns all values of given row as a response.</p>
+<ul class="simple">
+<li><p>DELETE /v1/{instanceID}/deleteTable</p></li>
+</ul>
+<p>This DELETE API will delete a tables that are listed in request payload in given instanceId</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;tableList&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="features-under-development">
+<h1>Features Under Development<a class="headerlink" href="#features-under-development" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p>simplify parameter names to accomodate multiple datastores</p></li>
+<li><p>Add new parameter to identify specific datastore</p></li>
+<li><p>Add support for Spanner and Redis</p></li>
+</ul>
+</section>
+<section id="contributor-guide">
+<h1>Contributor Guide<a class="headerlink" href="#contributor-guide" title="Permalink to this heading"></a></h1>
+<ol class="arabic simple">
+<li><p>Before contributing to this CVS Health sponsored project, you will
+need to sign the associated <a class="reference external" href="https://forms.office.com/r/EyZTFf6tjm">Contributor License
+Agreement</a>.</p></li>
+<li><p>See <a class="reference external" href="CONTRIBUTING.md">contributing</a> page.</p></li>
+</ol>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright © 2024 CVS Health and/or one of its affiliates.  All rights reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
